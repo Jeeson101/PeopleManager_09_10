@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeopleManager.Dto.Requests;
 using PeopleManager.Dto.Results;
 using PeopleManager.Sdk;
 
 namespace PeopleManager.Ui.Mvc.Controllers
 {
+    [Authorize]
     public class OrganizationsController : Controller
     {
         private readonly OrganizationSdk _organizationSdk;

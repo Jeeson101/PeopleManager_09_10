@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using PeopleManager.Sdk.Handlers;
+using Vives.Presentation.Authentication;
 
 namespace PeopleManager.Sdk.Extensions
 {
@@ -6,15 +8,18 @@ namespace PeopleManager.Sdk.Extensions
     {
         public static IServiceCollection AddApi(this IServiceCollection services, string apiUrl)
         {
+	        services.AddScoped<AuthorizationHandler>();
+
             services.AddHttpClient("PeopleManagerApi", options =>
             {
                 options.BaseAddress = new Uri(apiUrl);
-            });
+            }).AddHttpMessageHandler<AuthorizationHandler>();
 
-            services.AddScoped<OrganizationSdk>();
+			services.AddScoped<IdentitySdk>();
+			services.AddScoped<OrganizationSdk>();
             services.AddScoped<PersonSdk>();
 
-            return services;
+			return services;
         }
     }
 }

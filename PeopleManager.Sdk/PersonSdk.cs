@@ -1,21 +1,24 @@
 ﻿using System.Net.Http.Json;
 using PeopleManager.Dto.Requests;
 using PeopleManager.Dto.Results;
+using PeopleManager.Sdk.Extensions;
+using Vives.Presentation.Authentication;
 using Vives.Services.Model;
 using Vives.Services.Model.Extensions;
 
 namespace PeopleManager.Sdk
 {
-    public class PersonSdk(IHttpClientFactory httpClientFactory)
+    public class PersonSdk(IHttpClientFactory httpClientFactory, IBearerTokenStore tokenStore)
     {
         private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
+        private readonly IBearerTokenStore _tokenStore = tokenStore;
 
         //Find
         public async Task<IList<PersonResult>> Find()
         {
-            var httpClient = _httpClientFactory.CreateClient("PeopleManagerApi");
+			var httpClient = _httpClientFactory.CreateClient("PeopleManagerApi");
 
-            var route = "People";
+			var route = "People";
             var response = await httpClient.GetAsync(route);
 
             response.EnsureSuccessStatusCode();
@@ -32,9 +35,9 @@ namespace PeopleManager.Sdk
         //Get
         public async Task<ServiceResult<PersonResult>> Get(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient("PeopleManagerApi");
+			var httpClient = _httpClientFactory.CreateClient("PeopleManagerApi");
 
-            var route = $"People/{id}";
+			var route = $"People/{id}";
             var response = await httpClient.GetAsync(route);
 
             response.EnsureSuccessStatusCode();
@@ -51,9 +54,9 @@ namespace PeopleManager.Sdk
         //Create
         public async Task<ServiceResult<PersonResult>> Create(PersonRequest request)
         {
-            var httpClient = _httpClientFactory.CreateClient("PeopleManagerApi");
+			var httpClient = _httpClientFactory.CreateClient("PeopleManagerApi");
 
-            var route = "People";
+			var route = "People";
             var response = await httpClient.PostAsJsonAsync(route, request);
 
             response.EnsureSuccessStatusCode();
@@ -70,9 +73,9 @@ namespace PeopleManager.Sdk
         //Update
         public async Task<ServiceResult<PersonResult>> Update(int id, PersonRequest request)
         {
-            var httpClient = _httpClientFactory.CreateClient("PeopleManagerApi");
+			var httpClient = _httpClientFactory.CreateClient("PeopleManagerApi");
 
-            var route = $"People/{id}";
+			var route = $"People/{id}";
             var response = await httpClient.PutAsJsonAsync(route, request);
 
             response.EnsureSuccessStatusCode();
@@ -90,9 +93,9 @@ namespace PeopleManager.Sdk
         //Delete
         public async Task<ServiceResult<PersonResult>> Delete(int id)
         {
-            var httpClient = _httpClientFactory.CreateClient("PeopleManagerApi");
+			var httpClient = _httpClientFactory.CreateClient("PeopleManagerApi");
 
-            var route = $"People/{id}";
+			var route = $"People/{id}";
             var response = await httpClient.DeleteAsync(route);
 
             response.EnsureSuccessStatusCode();

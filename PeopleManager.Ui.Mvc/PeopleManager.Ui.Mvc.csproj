@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PeopleManager.Sdk\PeopleManager.Sdk.csproj" />
+    <ProjectReference Include="..\Vives.Presentation.Authentication\Vives.Presentation.Authentication.csproj" />
   </ItemGroup>
 
 </Project>

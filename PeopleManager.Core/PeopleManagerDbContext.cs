@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PeopleManager.Model;
 
@@ -11,7 +12,7 @@ namespace PeopleManager.Core
 
         public void Seed()
         {
-            var vivesOrganization = new Organization
+			var vivesOrganization = new Organization
             {
                 Name = "Vives University College"
             };

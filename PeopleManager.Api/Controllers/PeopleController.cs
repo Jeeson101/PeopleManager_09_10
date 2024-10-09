@@ -1,17 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeopleManager.Dto.Requests;
 using PeopleManager.Services;
 
 namespace PeopleManager.Api.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class PeopleController(PersonService personService) : ControllerBase
     {
         private readonly PersonService _personService = personService;
 
-        //Find (more) GET
-        [HttpGet]
+		//Find (more) GET
+		[AllowAnonymous]
+		[HttpGet]
         public async Task<IActionResult> Find()
         {
             var people = await _personService.Find();
@@ -19,6 +22,7 @@ namespace PeopleManager.Api.Controllers
         }
 
         //Get (one) GET
+        [AllowAnonymous]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> Get([FromRoute]int id)
         {

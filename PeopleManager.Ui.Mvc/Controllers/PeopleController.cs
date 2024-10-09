@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeopleManager.Dto.Requests;
 using PeopleManager.Dto.Results;
 using PeopleManager.Sdk;
 
 namespace PeopleManager.Ui.Mvc.Controllers
 {
+    [Authorize]
     public class PeopleController : Controller
     {
         private readonly PersonSdk _personSdk;
@@ -58,7 +60,7 @@ namespace PeopleManager.Ui.Mvc.Controllers
         {
             var result = await _personSdk.Get(id);
 
-            if (result.IsSuccess || result.Data is null)
+            if (!result.IsSuccess || result.Data is null)
             {
                 return RedirectToAction("Index");
             }

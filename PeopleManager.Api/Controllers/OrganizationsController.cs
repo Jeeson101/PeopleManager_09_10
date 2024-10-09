@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeopleManager.Dto.Requests;
 using PeopleManager.Services;
 
 namespace PeopleManager.Api.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class OrganizationsController(OrganizationService organizationService) : ControllerBase

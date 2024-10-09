@@ -1,5 +1,9 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using PeopleManager.Sdk.Extensions;
+using PeopleManager.Ui.Mvc.Handlers;
 using PeopleManager.Ui.Mvc.Settings;
+using PeopleManager.Ui.Mvc.Stores;
+using Vives.Presentation.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +12,21 @@ builder.Services.AddControllersWithViews();
 
 var apiSettings = new ApiSettings();
 builder.Configuration.GetSection(nameof(ApiSettings)).Bind(apiSettings);
+
+//builder.Services.AddScoped<RedirectToSignInHandler>();
 builder.Services.AddApi(apiSettings.BaseUrl);
+	//.AddHander<RedirectToSignInHandler>;
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+	.AddCookie(options =>
+	{
+		options.LoginPath = "/Account/SignIn";
+		options.LogoutPath = "/Account/Logout";
+	});
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<IBearerTokenStore, BearerTokenStore>();
 
 var app = builder.Build();
 
@@ -25,6 +43,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

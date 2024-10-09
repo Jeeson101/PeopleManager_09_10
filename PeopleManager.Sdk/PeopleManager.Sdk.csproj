@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PeopleManager.Dto\PeopleManager.Dto.csproj" />
+    <ProjectReference Include="..\Vives.Presentation.Authentication\Vives.Presentation.Authentication.csproj" />
     <ProjectReference Include="..\Vives.Services.Model\Vives.Services.Model.csproj" />
   </ItemGroup>
 
